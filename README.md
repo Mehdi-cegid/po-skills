@@ -1,10 +1,9 @@
 # PO skills
 
-Skills that let product owners grill a product idea and turn it into a French PRD in Notion, building the product glossary along the way. Works in any agent that supports skills and MCP servers, such as Claude Code, Cursor, or Codex.
+Skills that let product owners grill a product idea and turn it into a French PRD in Notion, building the product glossary along the way. Works in any agent that supports skills and remote MCP servers, such as Claude Code, Cursor, or Codex, on macOS, Windows, or Linux.
 
 ## Prerequisites
 
-- one or more agents that support skills and remote MCP servers, on macOS, Windows, or Linux
 - a Notion account in the team's workspace
 - git access to this repo and the team's repos, on any git host
 - git and Node.js: the installing agent installs them when missing, which may ask for your computer's admin password
@@ -13,7 +12,7 @@ Skills that let product owners grill a product idea and turn it into a French PR
 
 Paste this repo's link into your agent and ask: « Installe les PO skills en suivant la section Install du README de ce repo. » The agent runs steps 1 to 3, then hands you step 4.
 
-**For the installing agent**: run the steps in order.
+**For the installing agent**: meet each step's « Done when » before starting the next.
 
 ### 1. Check the tools, the repo, and the agents
 
@@ -36,7 +35,7 @@ npx -y skills add <source> -g -a <agent> -s '*' -y
 
 - `<source>` is `<repo-url>` when it is a github.com or gitlab.com link, or a clone URL ending in `.git` or in SSH form (`git@host:path`). Any other link: `git clone --depth 1 <repo-url>` into a temporary folder and pass that folder's path.
 - Repeat `-a` once per agent of the user's, by its `skills` ID (`claude-code`, `cursor`, `codex`, `gemini-cli`, `github-copilot`…). An unknown ID makes `skills` list the valid ones and install nothing.
-- `skills` keeps one copy of each skill in `~/.agents/skills/` and links it into each agent's folder, so an agent that reads several of those folders still sees each skill once. For an agent with no ID, add `-a universal`, which fills `~/.agents/skills/`, then link each skill folder from there into the user-wide skills folder the agent's documentation names; skip this when the agent already reads `~/.agents/skills/`.
+- For an agent with no ID, add `-a universal`, which fills `~/.agents/skills/`. When that agent doesn't read `~/.agents/skills/`, link each skill folder from there into the user-wide skills folder its documentation names.
 
 Done when every skill that `npx -y skills add <source> -l` lists is installed for each of the user's agents: listed with that agent in `npx -y skills ls -g --json`, or linked into its folder. When `add` reports a skipped skill, stop and tell the user the repo has a broken skill for its maintainers to fix.
 
